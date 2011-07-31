@@ -8,6 +8,7 @@ if(!class_exists('Pview'))
     protected $parent = null;
     protected $available_sections = array();
     protected $current_section = null;
+    protected $ci;
     
     public function __construct()
     {
@@ -15,6 +16,7 @@ if(!class_exists('Pview'))
         trigger_error("Buffering functions 'ob_get_clean' and 'ob_get_clean' are not available. They are necessary for Pview to work properly.");
         exit();
       }
+      $this->ci =& get_instance();
     }
     
     public function set_parent($file)
@@ -64,6 +66,11 @@ if(!class_exists('Pview'))
     public function content_exists($str)
     {
       return isset($this->available_sections[$str]);
+    }
+    
+    public function __get($name)
+    {
+      return $this->ci->$name;
     }
   }
 }
