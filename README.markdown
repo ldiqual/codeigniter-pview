@@ -74,12 +74,12 @@ You can embed many views with this system, to be as precise as possible.
 Helpers reference
 ----------------
 
-### `set_parent($path)`
+### set_parent($path)
 
 Sets the current view parent to `application/views/$path.html.php`. `path` can contain a directory: eg `user/index`.
 Any variable passed to the view through `$ci->load->view('view.html.php', $data)` will be available in the parent view.
 
-### `content_for($str, [$content = false])`
+### content_for($str, [$content = false])
 
 Starts tag for a content that will be returned by `content_of($str)`.
 `$content` allows you to quickly pass data to the parent view.
@@ -90,16 +90,16 @@ Starts tag for a content that will be returned by `content_of($str)`.
       here is some text
     <? end_content_for(); ?>
 
-### `content_of($str)`
+### content_of($str)
 
 Outputs the html/string content placed between `content_for($str)` and `end_content_for()` (or just the shortcut `content_for($str, $content)`).
 It can be embedded between these same tags, to output something in an other content.
 
-### `show()`
+### show()
 
 Generates the current view and his parent. It should be put at the very bottom of the current view, as any instruction after it will occurs at the end of the generated PHP code.
 
-### `content_exists($str)`
+### content_exists($str)
 
 Returns wether `$str`'s content is defined or not.
 
