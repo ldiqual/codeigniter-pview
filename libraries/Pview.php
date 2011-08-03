@@ -28,10 +28,14 @@ if(!class_exists('Pview'))
       $this->parent = $file;
     }
     
-    public function content_for($str)
+    public function content_for($str, $content = false)
     {
-      $this->current_section = $str;
-      ob_start();
+      if ($content) {
+        $this->current_section = $str;
+      } else {
+        $this->current_section = $str;
+        ob_start();
+      }
     }
     
     public function end_content_for()
@@ -51,7 +55,7 @@ if(!class_exists('Pview'))
         exit();
       }
       
-      echo $this->available_sections[$str];
+      return $this->available_sections[$str];
     }
     
     public function show()
@@ -60,6 +64,11 @@ if(!class_exists('Pview'))
         trigger_error('No parent defined.');
         exit();
       }
+      
+      // Allows included file to get view variables
+      // (passed through $this->load->view('', $data))
+      extract($this->ci->load->_ci_cached_vars);
+      
       include(APPPATH.'/views/'. $this->parent .'.html.php');
     }
     
